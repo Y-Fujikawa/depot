@@ -17,7 +17,7 @@ class ProductTest < ActiveSupport::TestCase
   # 価格の検証
   test "product price must be positive" do
     product = Product.new(title: "My Book Title",
-                          description: "yyy",
+                          description: "1234567890",
                           image_url: "zzz.jpg")
     product.price = -1
     assert product.invalid?
@@ -31,16 +31,32 @@ class ProductTest < ActiveSupport::TestCase
     assert product.valid?
   end
   
+  # 商品名の検証
+  test "product description must be length <= 10" do
+    product = Product.new(description: "1234567890",
+                          price: 1,
+                          image_url: "zzz.jpg")
+    product.title = "123456789"
+    assert product.invalid?
+    assert_equal "商品名は10文字以上でなければなりません", product.errors[:title].join('; ')
+
+    product.title = "1234567890"
+    assert product.valid?
+
+    product.title = "12345678901"
+    assert product.valid?
+  end
+  
   # 画像URLの検証
   def new_product(image_url) 
     product = Product.new(title: "My Book Title",
-                          description: "yyy",
+                          description: "1234567890",
                           price: 1,
                           image_url: image_url)
   end
   
   test "image_url" do
-    ok = %w{ fred.gif fred.jpg fred.png FRED.JPG FRED.Jpg http://a.b.c/x/y/z/fred.gif }
+    ok = %w{ fred.jpg fred.png FRED.JPG FRED.Jpg http://a.b.c/x/y/z/fred.gif }
     ng = %w{ fred.doc fred.gif/more fred.gif.more }
     
     ok.each do |name|
