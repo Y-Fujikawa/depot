@@ -1,15 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  title: MyString
+  title: MyString12345
   description: MyText
-  image_url: MyString
+  image_url: MyString.jpg
   price: 9.99
 
 two:
-  title: MyString
+  title: MyString12345
   description: MyText
-  image_url: MyString
+  image_url: MyString.png
   price: 9.99
 
 ruby:
