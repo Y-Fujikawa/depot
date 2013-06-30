@@ -15,6 +15,10 @@ class ProductsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:products)
+    
+    assert_select '.list_description', minimum: 3
+    assert_select 'dt', 'Programming Ruby 1.9'
+    assert_select 'dt', 'MyText'
   end
 
   test "should get new" do
